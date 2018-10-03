@@ -1,0 +1,52 @@
+{
+  "builders": [{
+    "type": "virtualbox-iso",
+    "guest_os_type": "Windows2012_64",
+    "iso_url":"{{user `iso_url`}}",
+    "iso_checksum":"{{user `iso_checksum`}}",
+    "iso_checksum_type":"{{user `iso_checksum_type`}}",
+    "disk_size": "{{user `disk_size`}}",
+    "hard_drive_interface": "sata",
+    "hard_drive_nonrotational": "true",
+    "iso_interface": "sata",
+    "iso_target_extension": "iso",
+    "floppy_files": [
+      "answer_files/2012r2/autounattend.xml",
+      "scripts/enable-winrm.ps1"
+    ],
+    "communicator": "winrm",
+    "winrm_username": "{{user `winrm_user`}}",
+    "winrm_password": "{{user `winrm_pass`}}",
+    "winrm_timeout": "12h",
+    "vboxmanage": [
+      [ "modifyvm", "{{.Name}}", "--cpus", "{{user `cpu_count`}}" ],
+      [ "modifyvm", "{{.Name}}", "--memory", "{{user `memory_size`}}" ],
+      [ "modifyvm", "{{.Name}}", "--vram", "48" ],
+      [ "modifyvm", "{{.Name}}", "--hwvirtex", "on" ],
+      [ "modifyvm", "{{.Name}}", "--nestedpaging", "on" ],
+      [ "modifyvm", "{{.Name}}", "--largepages", "on" ],
+      [ "modifyvm", "{{.Name}}", "--vtxvpid", "on" ],
+      [ "modifyvm", "{{.Name}}", "--vtxux", "on" ],
+      [ "modifyvm", "{{.Name}}", "--paravirtprovider", "hyperv" ],
+      [ "modifyvm", "{{.Name}}", "--audio", "none" ],
+      [ "modifyvm", "{{.Name}}", "--clipboard", "bidirectional" ]
+    ],
+    "post_shutdown_delay": "30s",
+    "shutdown_command": "shutdown /s /t 600 /f /d p:4:1 /c \"Packer Shutdown\"",
+    "shutdown_timeout": "15m",
+    "headless": "{{user `headless`}}",
+    "skip_export": "{{user `export`}}"
+  }],
+  "variables": {
+    "iso_url": "iso/9600.16384.WINBLUE_RTM.130821-1623_X64FRE_SERVER_EVAL_EN-US-IRM_SSS_X64FREE_EN-US_DV5.ISO",
+    "iso_checksum_type": "md5",
+    "iso_checksum": "458ff91f8abc21b75cb544744bf92e6a",
+    "cpu_count": "2",
+    "memory_size": "8192",
+    "disk_size": "40960",
+    "headless": "false",
+    "export": "true",
+    "winrm_user": "packer",
+    "winrm_pass": "packer"
+  }
+}
