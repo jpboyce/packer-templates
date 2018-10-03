@@ -14,12 +14,10 @@
       "answer_files/2012r2/autounattend.xml",
       "scripts/enable-winrm.ps1"
     ],
-
     "communicator": "winrm",
-    "winrm_username": "packer",
-      "winrm_password": "P@ssw0rd123",
-      "winrm_timeout": "12h",
-
+    "winrm_username": "{{user `winrm_user`}}",
+    "winrm_password": "{{user `winrm_pass`}}",
+    "winrm_timeout": "12h",
     "vboxmanage": [
       [ "modifyvm", "{{.Name}}", "--cpus", "{{user `cpu_count`}}" ],
       [ "modifyvm", "{{.Name}}", "--memory", "{{user `memory_size`}}" ],
@@ -33,15 +31,11 @@
       [ "modifyvm", "{{.Name}}", "--audio", "none" ],
       [ "modifyvm", "{{.Name}}", "--clipboard", "bidirectional" ]
     ],
-
-    "boot_wait": "2m",
-    "post_shutdown_delay": "5m",
-    "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
-    "shutdown_timeout": "5m",
-
+    "post_shutdown_delay": "30s",
+    "shutdown_command": "shutdown /s /t 600 /f /d p:4:1 /c \"Packer Shutdown\"",
+    "shutdown_timeout": "15m",
     "headless": "{{user `headless`}}",
-    "output_directory": ""
-
+    "skip_export": "{{user `export`}}"
   }],
   "variables": {
     "iso_url": "iso/9600.16384.WINBLUE_RTM.130821-1623_X64FRE_SERVER_EVAL_EN-US-IRM_SSS_X64FREE_EN-US_DV5.ISO",
@@ -50,6 +44,9 @@
     "cpu_count": "2",
     "memory_size": "8192",
     "disk_size": "40960",
-    "headless": "true"
+    "headless": "false",
+    "export": "true",
+    "winrm_user": "packer",
+    "winrm_pass": "packer"
   }
 }
