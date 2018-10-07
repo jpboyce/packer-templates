@@ -1,0 +1,172 @@
+{
+  "builders": [{
+    "type": "virtualbox-ovf",
+    "source_path": "./output-windows2012r2-base/windos2012r2-base.ovf",
+    "output_directory": "./output-windows2012r2-wu-prereq/",
+    "vm_name": "windos2012r2-wu-prereq",
+    "communicator": "winrm",
+    "winrm_username": "{{user `winrm_user`}}",
+    "winrm_password": "{{user `winrm_pass`}}",
+    "winrm_timeout": "12h",
+    "vboxmanage": [
+      [ "modifyvm", "{{.Name}}", "--cpus", "{{user `cpu_count`}}" ],
+      [ "modifyvm", "{{.Name}}", "--memory", "{{user `memory_size`}}" ],
+      [ "modifyvm", "{{.Name}}", "--vram", "48" ],
+      [ "modifyvm", "{{.Name}}", "--hwvirtex", "on" ],
+      [ "modifyvm", "{{.Name}}", "--nestedpaging", "on" ],
+      [ "modifyvm", "{{.Name}}", "--largepages", "on" ],
+      [ "modifyvm", "{{.Name}}", "--vtxvpid", "on" ],
+      [ "modifyvm", "{{.Name}}", "--vtxux", "on" ],
+      [ "modifyvm", "{{.Name}}", "--paravirtprovider", "hyperv" ],
+      [ "modifyvm", "{{.Name}}", "--audio", "none" ],
+      [ "modifyvm", "{{.Name}}", "--clipboard", "bidirectional" ],
+      [ "sharedfolder", "add", "{{.Name}}", "--name", "2012R2PATCHES", "--hostpath", "C:/gitrepo/packer-templates/resources/patches/2012R2", "--readonly"],
+      [ "sharedfolder", "add", "{{.Name}}", "--name", "INSTALLERS", "--hostpath", "C:/gitrepo/packer-templates/resources/installers", "--readonly"]
+    ],
+    "post_shutdown_delay": "30s",
+    "shutdown_command": "shutdown /s /t 3600 /f /d p:4:1 /c \"Packer Shutdown\"",
+    "shutdown_timeout": "30m",
+    "headless": "{{user `headless`}}",
+    "skip_export": "{{user `skipexport`}}",
+    "guest_additions_mode": "disable"
+  }],
+  "provisioners": [
+    {
+      "type": "powershell",
+      "script": "scripts/wu-prereq-01-KB2919442.ps1",
+      "elevated_user": "{{user `winrm_user`}}",
+      "elevated_password": "{{user `winrm_pass`}}"
+    },
+    {
+      "type": "powershell",
+      "pause_before": "120s",
+      "valid_exit_codes": [0, 259],
+      "script": "scripts/wu-prereq-02-KB2919355.ps1",
+      "elevated_user": "{{user `winrm_user`}}",
+      "elevated_password": "{{user `winrm_pass`}}"
+    },
+    {
+      "type": "windows-restart",
+      "pause_before": "120s",
+      "restart_timeout": "1h"
+    },
+    {
+      "type": "powershell",
+      "pause_before": "120s",
+      "valid_exit_codes": [0, 259],
+      "script": "scripts/wu-prereq-03-KB2932046.ps1",
+      "elevated_user": "{{user `winrm_user`}}",
+      "elevated_password": "{{user `winrm_pass`}}"
+    },
+    {
+      "type": "windows-restart",
+      "pause_before": "120s",
+      "restart_timeout": "1h"
+    },
+    {
+      "type": "powershell",
+      "pause_before": "120s",
+      "valid_exit_codes": [0, 259],
+      "script": "scripts/wu-prereq-04-KB2959977.ps1",
+      "elevated_user": "{{user `winrm_user`}}",
+      "elevated_password": "{{user `winrm_pass`}}"
+    },
+    {
+      "type": "windows-restart",
+      "pause_before": "120s",
+      "restart_timeout": "1h"
+    },
+    {
+      "type": "powershell",
+      "pause_before": "120s",
+      "valid_exit_codes": [0, 259],
+      "script": "scripts/wu-prereq-05-KB2937592.ps1",
+      "elevated_user": "{{user `winrm_user`}}",
+      "elevated_password": "{{user `winrm_pass`}}"
+    },
+    {
+      "type": "powershell",
+      "pause_before": "120s",
+      "valid_exit_codes": [0, 259],
+      "script": "scripts/wu-prereq-06-KB2938439.ps1",
+      "elevated_user": "{{user `winrm_user`}}",
+      "elevated_password": "{{user `winrm_pass`}}"
+    },
+    {
+      "type": "windows-restart",
+      "pause_before": "120s",
+      "restart_timeout": "1h"
+    },
+    {
+      "type": "powershell",
+      "pause_before": "120s",
+      "valid_exit_codes": [0, 259],
+      "script": "scripts/wu-prereq-07-KB2934018.ps1",
+      "elevated_user": "{{user `winrm_user`}}",
+      "elevated_password": "{{user `winrm_pass`}}"
+    },
+    {
+      "type": "windows-restart",
+      "pause_before": "120s",
+      "restart_timeout": "1h"
+    },
+    {
+      "type": "powershell",
+      "pause_before": "120s",
+      "valid_exit_codes": [0, 259],
+      "script": "scripts/wu-prereq-08-KB3000850.ps1",
+      "elevated_user": "{{user `winrm_user`}}",
+      "elevated_password": "{{user `winrm_pass`}}"
+    },
+    {
+      "type": "windows-restart",
+      "pause_before": "120s",
+      "restart_timeout": "1h"
+    },
+    {
+      "type": "powershell",
+      "pause_before": "120s",
+      "valid_exit_codes": [0, 259],
+      "script": "scripts/wu-prereq-09-KB3003057.ps1",
+      "elevated_user": "{{user `winrm_user`}}",
+      "elevated_password": "{{user `winrm_pass`}}"
+    },
+    {
+      "type": "windows-restart",
+      "pause_before": "120s",
+      "restart_timeout": "1h"
+    },
+    {
+      "type": "powershell",
+      "pause_before": "120s",
+      "valid_exit_codes": [0, 259],
+      "script": "scripts/wu-prereq-10-KB3016437.ps1",
+      "elevated_user": "{{user `winrm_user`}}",
+      "elevated_password": "{{user `winrm_pass`}}"
+    },
+    {
+      "type": "windows-restart",
+      "pause_before": "120s",
+      "restart_timeout": "1h"
+    },
+    {
+      "type": "powershell",
+      "pause_before": "120s",
+      "valid_exit_codes": [0, 259],
+      "script": "scripts/wu-prereq-11-KB3014442.ps1",
+      "elevated_user": "{{user `winrm_user`}}",
+      "elevated_password": "{{user `winrm_pass`}}"
+    }
+  ],
+  "variables": {
+    "cpu_count": "2",
+    "memory_size": "8192",
+    "disk_size": "40960",
+    "headless": "false",
+    "skipexport": "false",
+    "winrm_user": "packer",
+    "winrm_pass": "packer",
+    "patch_drive": "C:/gitrepo/packer-templates/resources/patch-drives/2012r2.vhd",
+    "vbox_guest_additions": "C:/Program Files/Oracle/VirtualBox/VBoxGuestAdditions.iso"
+  }
+}
