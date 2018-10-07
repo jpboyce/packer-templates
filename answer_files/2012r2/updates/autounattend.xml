@@ -129,24 +129,42 @@
                     <Order>1</Order>
                     <Description>Set Execution Policy for 64-bit</Description>
                     <CommandLine>cmd.exe /c powershell -Command "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force"</CommandLine>
+                    <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>2</Order>
                     <Description>Set Execution Policy for 32-bit</Description>
                     <CommandLine>C:\Windows\SysWOW64\cmd.exe /c powershell -Command "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force"</CommandLine>
+                    <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>3</Order>
                     <Description>Enable WinRM</Description>
                     <CommandLine>cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\enable-winrm.ps1</CommandLine>
+                    <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
+                <!-- START INSTALL VBOX TOOLS -->
+                <!-- <SynchronousCommand wcm:action="add">
+                    <Order>20</Order>
+                    <Description>Add certificates to trusted store</Description>
+                    <CommandLine>cmd.exe /c a:\add-certs.bat"</CommandLine>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <Order>21</Order>
+                    <Description>Install VBOX Tools</Description>
+                    <CommandLine>cmd.exe /c e:/VBoxWindowsAdditions.exe /l /S</CommandLine>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand> -->
+                <!-- END INSTALL VBOX TOOLS -->
                 <!-- START WINDOWS UPDATE PREREQS - BATCH 1 -->
-                <!--
                 <SynchronousCommand wcm:action="add">
                     <Order>40</Order>
                     <Description>Install KB2919442 (March 2014 servicing stack update)</Description>
                     <CommandLine>cmd.exe /c a:\kb2919442.bat</CommandLine>
+                    <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
+                <!--
                 <SynchronousCommand wcm:action="add">
                     <Order>50</Order>
                     <Description>Install April 2014 Update - Downloads</Description>
