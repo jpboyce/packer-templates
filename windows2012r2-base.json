@@ -1,6 +1,8 @@
 {
   "builders": [{
     "type": "virtualbox-iso",
+    "vm_name": "windos2012r2-base",
+    "output_directory": "./output-windows2012r2-base/",
     "guest_os_type": "Windows2012_64",
     "iso_url":"{{user `iso_url`}}",
     "iso_checksum":"{{user `iso_checksum`}}",
@@ -11,7 +13,7 @@
     "iso_interface": "sata",
     "iso_target_extension": "iso",
     "floppy_files": [
-      "answer_files/2012r2/autounattend.xml",
+      "answer_files/2012r2/base/autounattend.xml",
       "scripts/enable-winrm.ps1"
     ],
     "communicator": "winrm",
@@ -33,10 +35,18 @@
     ],
     "post_shutdown_delay": "30s",
     "shutdown_command": "shutdown /s /t 600 /f /d p:4:1 /c \"Packer Shutdown\"",
-    "shutdown_timeout": "15m",
+    "shutdown_timeout": "60m",
     "headless": "{{user `headless`}}",
-    "skip_export": "{{user `export`}}"
+    "skip_export": "{{user `skipexport`}}"
   }],
+  "provisioners": [
+    {
+      "type": "powershell",
+      "script": "scripts/install-vbox-guest-additions.ps1",
+      "elevated_user": "{{user `winrm_user`}}",
+      "elevated_password": "{{user `winrm_pass`}}"
+    }
+  ],
   "variables": {
     "iso_url": "iso/9600.16384.WINBLUE_RTM.130821-1623_X64FRE_SERVER_EVAL_EN-US-IRM_SSS_X64FREE_EN-US_DV5.ISO",
     "iso_checksum_type": "md5",
@@ -45,7 +55,7 @@
     "memory_size": "8192",
     "disk_size": "40960",
     "headless": "false",
-    "export": "true",
+    "skipexport": "false",
     "winrm_user": "packer",
     "winrm_pass": "packer"
   }
