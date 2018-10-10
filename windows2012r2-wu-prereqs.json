@@ -2,7 +2,7 @@
   "builders": [{
     "type": "virtualbox-ovf",
     "source_path": "./output/windows2012r2-base-20181007073612/windos2012r2-base.ovf",
-    "output_directory": "./output-windows2012r2-wu-prereq/",
+    "output_directory": "./output-windows2012r2-wu-prereq-{{isotime \"20060102150405\"}}/",
     "vm_name": "windos2012r2-wu-prereq",
     "communicator": "winrm",
     "winrm_username": "{{user `winrm_user`}}",
@@ -24,11 +24,12 @@
       [ "sharedfolder", "add", "{{.Name}}", "--name", "INSTALLERS", "--hostpath", "C:/gitrepo/packer-templates/resources/installers", "--readonly"]
     ],
     "post_shutdown_delay": "30s",
-    "shutdown_command": "shutdown /s /t 3600 /f /d p:4:1 /c \"Packer Shutdown\"",
+    "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
     "shutdown_timeout": "30m",
     "headless": "{{user `headless`}}",
     "skip_export": "{{user `skipexport`}}",
-    "guest_additions_mode": "disable"
+    "guest_additions_mode": "disable",
+    "keep_registered": "{{user `keepregistered`}}"
   }],
   "provisioners": [
     {
@@ -54,27 +55,6 @@
       "restart_timeout": "1h"
     },
     {
-      "type": "powershell",
-      "pause_before": "120s",
-      "valid_exit_codes": [0, 259],
-      "script": "scripts/wu-prereq-30-wmf51.ps1",
-      "elevated_user": "{{user `winrm_user`}}",
-      "elevated_password": "{{user `winrm_pass`}}"
-    },
-    {
-      "type": "windows-restart",
-      "pause_before": "300s",
-      "restart_timeout": "1h"
-    },
-    {
-      "type": "powershell",
-      "pause_before": "120s",
-      "valid_exit_codes": [0, 259],
-      "script": "scripts/wu-prereq-40-pscore.ps1",
-      "elevated_user": "{{user `winrm_user`}}",
-      "elevated_password": "{{user `winrm_pass`}}"
-    },
-    {
       "type": "windows-restart",
       "pause_before": "120s",
       "restart_timeout": "1h"
@@ -85,10 +65,11 @@
     "memory_size": "8192",
     "disk_size": "40960",
     "headless": "false",
-    "skipexport": "true",
+    "skipexport": "false",
     "winrm_user": "packer",
     "winrm_pass": "packer",
     "patch_drive": "C:/gitrepo/packer-templates/resources/patch-drives/2012r2.vhd",
-    "vbox_guest_additions": "C:/Program Files/Oracle/VirtualBox/VBoxGuestAdditions.iso"
+    "vbox_guest_additions": "C:/Program Files/Oracle/VirtualBox/VBoxGuestAdditions.iso",
+    "keepregistered": "false"
   }
 }
