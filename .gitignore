@@ -3,6 +3,7 @@ iso/*
 
 # ignore output folders
 output-*/*
+output/*
 
 # ignore resources folder
 resources/*
