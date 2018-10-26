@@ -10,14 +10,13 @@
     "hard_drive_nonrotational": "true",
     "iso_interface": "sata",
     "iso_target_extension": "iso",
-    "floppy_files": [
-      "answer_files/2012r2/autounattend.xml",
-      "scripts/enable-winrm.ps1"
+    "boot_command": [
+      "<up><wait><tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort}}/{{ user `kickstart` }}<enter>"
     ],
-    "communicator": "winrm",
-    "winrm_username": "{{user `winrm_user`}}",
-    "winrm_password": "{{user `winrm_pass`}}",
-    "winrm_timeout": "12h",
+    "http_directory": "{{ user `http_directory` }}",
+    "ssh_username": "{{user `ssh_user`}}",
+    "ssh_password": "{{user `ssh_pass`}}",
+    "ssh_timeout": "12m",
     "vboxmanage": [
       [ "modifyvm", "{{.Name}}", "--cpus", "{{user `cpu_count`}}" ],
       [ "modifyvm", "{{.Name}}", "--memory", "{{user `memory_size`}}" ],
@@ -32,19 +31,21 @@
       [ "modifyvm", "{{.Name}}", "--clipboard", "bidirectional" ]
     ],
     "post_shutdown_delay": "30s",
-    "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+    "shutdown_command": "echo 'packer'|sudo -S shutdown -P now",
     "shutdown_timeout": "15m",
     "headless": "{{user `headless`}}"
   }],
   "variables": {
-    "iso_url": "iso/9600.16384.WINBLUE_RTM.130821-1623_X64FRE_SERVER_EVAL_EN-US-IRM_SSS_X64FREE_EN-US_DV5.ISO",
+    "http_directory": "kickstart/centos7",
+    "kickstart": "ks.cfg",
+    "iso_url": "iso/CentOS-7-x86_64-Minimal-1804.iso",
     "iso_checksum_type": "md5",
-    "iso_checksum": "458ff91f8abc21b75cb544744bf92e6a",
+    "iso_checksum": "fabdc67ff3a1674a489953effa285dfd",
     "cpu_count": "2",
     "memory_size": "8192",
     "disk_size": "40960",
     "headless": "false",
-    "winrm_user": "packer",
-    "winrm_pass": "packer"
+    "ssh_user": "packer",
+    "ssh_pass": "packer"
   }
 }
