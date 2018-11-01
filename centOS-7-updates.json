@@ -1,0 +1,50 @@
+{
+  "builders": [{
+    "type": "virtualbox-ovf",
+    "source_path": "./output/centos7-base-20181027050349/centos7-base.ovf",
+    "output_directory": "./output/centos7-update-{{isotime \"20060102150405\"}}/",
+    "vm_name": "centos7-update",
+    "ssh_username": "{{user `ssh_user`}}",
+    "ssh_password": "{{user `ssh_pass`}}",
+    "ssh_timeout": "12h",
+    "vboxmanage": [
+      [ "modifyvm", "{{.Name}}", "--cpus", "{{user `cpu_count`}}" ],
+      [ "modifyvm", "{{.Name}}", "--memory", "{{user `memory_size`}}" ],
+      [ "modifyvm", "{{.Name}}", "--vram", "48" ],
+      [ "modifyvm", "{{.Name}}", "--hwvirtex", "on" ],
+      [ "modifyvm", "{{.Name}}", "--nestedpaging", "on" ],
+      [ "modifyvm", "{{.Name}}", "--largepages", "on" ],
+      [ "modifyvm", "{{.Name}}", "--vtxvpid", "on" ],
+      [ "modifyvm", "{{.Name}}", "--vtxux", "on" ],
+      [ "modifyvm", "{{.Name}}", "--paravirtprovider", "hyperv" ],
+      [ "modifyvm", "{{.Name}}", "--audio", "none" ],
+      [ "modifyvm", "{{.Name}}", "--clipboard", "bidirectional" ]
+    ],
+    "post_shutdown_delay": "30s",
+    "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
+    "shutdown_timeout": "30m",
+    "headless": "{{user `headless`}}",
+    "skip_export": "{{user `skipexport`}}",
+    "guest_additions_mode": "disable",
+    "keep_registered": "{{user `keepregistered`}}"
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "expect_disconnect": "true",
+    "scripts": [
+      "scripts/centos/update.sh",
+      "scripts/centos/cleanup.sh"
+    ]
+  }
+  ],
+  "variables": {
+    "cpu_count": "2",
+    "memory_size": "8192",
+    "disk_size": "40960",
+    "headless": "false",
+    "skipexport": "true",
+    "ssh_user": "vagrant",
+    "ssh_pass": "vagrant",
+    "keepregistered": "false"
+  }
+}
