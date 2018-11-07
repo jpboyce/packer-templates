@@ -77,8 +77,8 @@
                     <WillShowUI>OnError</WillShowUI>
                 </ProductKey>
                 <AcceptEula>true</AcceptEula>
-                <FullName>packer</FullName>
-                <Organization>packer</Organization>
+                <FullName>vagrant</FullName>
+                <Organization>vagrant</Organization>
             </UserData>
         </component>
     </settings>
@@ -99,30 +99,30 @@
                 <LocalAccounts>
                     <LocalAccount wcm:action="add">
                         <Password>
-                            <Value>packer</Value>
+                            <Value>vagrant</Value>
                             <PlainText>true</PlainText>
                         </Password>
-                        <Description>packer</Description>
-                        <DisplayName>packer</DisplayName>
+                        <Description>vagrant</Description>
+                        <DisplayName>vagrant</DisplayName>
                         <Group>administrators</Group>
-                        <Name>packer</Name>
+                        <Name>vagrant</Name>
                     </LocalAccount>
                 </LocalAccounts>
                 <AdministratorPassword>
-                    <Value>packer</Value>
+                    <Value>vagrant</Value>
                     <PlainText>true</PlainText>
                 </AdministratorPassword>
             </UserAccounts>
-            <RegisteredOrganization>packer</RegisteredOrganization>
-            <RegisteredOwner>packer</RegisteredOwner>
+            <RegisteredOrganization>vagrant</RegisteredOrganization>
+            <RegisteredOwner>vagrant</RegisteredOwner>
             <TimeZone>UTC</TimeZone>
             <AutoLogon>
                 <Password>
-                    <Value>packer</Value>
+                    <Value>vagrant</Value>
                     <PlainText>true</PlainText>
                 </Password>
                 <Enabled>true</Enabled>
-                <Username>packer</Username>
+                <Username>vagrant</Username>
             </AutoLogon>
             <FirstLogonCommands>
                 <SynchronousCommand wcm:action="add">
