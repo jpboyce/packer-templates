@@ -1,9 +1,9 @@
 {
   "builders": [{
     "type": "virtualbox-ovf",
-    "source_path": "./output/windows2012r2-base-20181007073612/windos2012r2-base.ovf",
+    "source_path": "./output/windows2012r2-base-20181108/windos2012r2-base.ovf",
     "output_directory": "./output-windows2012r2-wu-prereq-{{isotime \"20060102150405\"}}/",
-    "vm_name": "windos2012r2-wu-prereq",
+    "vm_name": "windos2012r2-wu-prereq-{{isotime \"20060102150405\"}}/",
     "communicator": "winrm",
     "winrm_username": "{{user `winrm_user`}}",
     "winrm_password": "{{user `winrm_pass`}}",
@@ -66,8 +66,8 @@
     "disk_size": "40960",
     "headless": "false",
     "skipexport": "false",
-    "winrm_user": "packer",
-    "winrm_pass": "packer",
+    "winrm_user": "vagrant",
+    "winrm_pass": "vagrant",
     "patch_drive": "C:/gitrepo/packer-templates/resources/patch-drives/2012r2.vhd",
     "vbox_guest_additions": "C:/Program Files/Oracle/VirtualBox/VBoxGuestAdditions.iso",
     "keepregistered": "false"
