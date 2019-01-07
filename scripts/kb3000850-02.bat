@@ -4,10 +4,10 @@
 
 @ echo off
 
-set KB3000850="C:\Windows\Temp\Windows8.1-KB3000850-x64.msu"
-set KB3003057="C:\Windows\Temp\Windows8.1-KB3003057-x64.msu"
-set KB3016437="C:\Windows\Temp\Windows8.1-KB3016437-x64.msu"
-set KB3014442="C:\Windows\Temp\Windows8.1-KB3014442-x64.msu"
+set KB3000850="D:\Windows8.1-KB3000850-x64.msu"
+set KB3003057="D:\Windows8.1-KB3003057-x64.msu"
+set KB3016437="D:\Windows8.1-KB3016437-x64.msu"
+set KB3014442="D:\Windows8.1-KB3014442-x64.msu"
 
 @echo on
 
