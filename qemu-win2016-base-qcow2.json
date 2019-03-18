@@ -1,0 +1,55 @@
+{
+    "builders": [{
+      "type": "qemu",
+      "vm_name": "windows2016-base",
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+      "accelerator": "kvm",
+      "qemuargs": [
+        ["-cpu", "host"],
+        ["-display", "gtk"]
+      ],
+      "cpus": "{{user `cpu_count`}}",
+      "disk_interface": "{{user `disk_interface`}}",
+      "disk_size": "{{user `disk_size`}}",
+      "format": "qcow2",
+      "headless": "{{user `headless`}}",
+      "memory": "{{ user `memory_size` }}",
+      "output_directory": "./output/win2016-base-qcow2-{{isotime \"20060102150405\"}}/",
+      "shutdown_command": "shutdown /s /t 600 /f /d p:4:1 /c \"Packer Shutdown\"",
+      "shutdown_timeout": "10m",
+      "communicator": "winrm",
+      "winrm_username": "{{user `winrm_user`}}",
+      "winrm_password": "{{user `winrm_pass`}}",
+      "winrm_timeout": "20m",
+      "floppy_files": [
+        "answer_files/2016/autounattend.xml",
+        "scripts/enable-winrm.ps1",
+        "drivers/NetKVM/2k16/amd64/*.cat",
+        "drivers/NetKVM/2k16/amd64/*.inf",
+        "drivers/NetKVM/2k16/amd64/*.sys",
+        "drivers/vioscsi/2k16/amd64/*.cat",
+        "drivers/vioscsi/2k16/amd64/*.inf",
+        "drivers/vioscsi/2k16/amd64/*.sys",
+        "drivers/viostor/2k16/amd64/*.cat",
+        "drivers/viostor/2k16/amd64/*.inf",
+        "drivers/viostor/2k16/amd64/*.sys"
+      ]
+    }
+    ],
+    "variables": {
+      "iso_url": "iso/Windows_Server_2016_Datacenter_EVAL_en-us_14393_refresh.ISO",
+      "iso_checksum_type": "md5",
+      "iso_checksum": "9025195de79cc1301f3dbfdcc568cb6c",
+      "cpu_count": "2",
+      "memory_size": "2048",
+      "disk_size": "40960",
+      "disk_interface": "virtio-scsi",
+      "headless": "false",
+      "winrm_user": "vagrant",
+      "winrm_pass": "vagrant",
+      "ssh_user": "vagrant",
+      "ssh_pass": "vagrant"
+    }
+  }
