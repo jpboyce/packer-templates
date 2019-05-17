@@ -25,7 +25,7 @@ if ($current_checksum -eq $iso_checksum) {
   Write-Output "The checksum matches what it should be, we can continue!"
   Write-Output "Mounting the ISO as X: drive..."
   Mount-DiskImage -ImagePath $iso_path -StorageType ISO -NoDriveLetter -Verbose
-  $drive = gwmi win32_volume -Filter "Label = 'VBox_GAs_5.2.22'"
+  $drive = gwmi win32_volume -Filter "Label = 'VBox_GAs_5.2.30'"
   $drive.DriveLetter = "X:"
   $drive.Put()
 
