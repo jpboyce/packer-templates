@@ -34,7 +34,7 @@
       [ "modifyvm", "{{.Name}}", "--clipboard", "bidirectional" ]
     ],
     "post_shutdown_delay": "30s",
-    "shutdown_command": "shutdown /s /t 600 /f /d p:4:1 /c \"Packer Shutdown\"",
+    "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
     "shutdown_timeout": "60m",
     "headless": "{{user `headless`}}",
     "skip_export": "{{user `skipexport`}}"
@@ -45,14 +45,6 @@
       "script": "scripts/install-vbox-guest-additions.ps1",
       "elevated_user": "{{user `winrm_user`}}",
       "elevated_password": "{{user `winrm_pass`}}"
-    }
-  ],
-  "post-processors": [
-    {
-      "type": "vagrant",
-      "keep_input_artifact": false,
-      "output": "windows2012r2-base-{{isotime \"20060102\"}}-{{.Provider}}.box",
-      "vagrantfile_template": "./vagrant-templates/windows2012r2.template"
     }
   ],
   "variables": {
