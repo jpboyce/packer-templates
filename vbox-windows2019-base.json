@@ -48,7 +48,7 @@
     }
   ],
   "variables": {
-    "iso_url": "iso/17763.379.190312-0539.rs5_release_svc_refresh_SERVER_EVAL_x64FRE_en-us.iso",
+    "iso_url": "file://E:/Software/Microsoft/Windows-2019/17763.379.190312-0539.rs5_release_svc_refresh_SERVER_EVAL_x64FRE_en-us.iso",
     "iso_checksum_type": "md5",
     "iso_checksum": "22ad0e83e20af5233a6ff453e6e257df",
     "cpu_count": "2",
