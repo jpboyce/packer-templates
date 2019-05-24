@@ -14,7 +14,8 @@
     "iso_target_extension": "iso",
     "floppy_files": [
       "answer_files/2019/base/autounattend.xml",
-      "scripts/windows/enable-winrm.ps1"
+      "scripts/windows/enable-winrm.ps1",
+      "scripts/windows/set-powercfg.ps1"
     ],
     "communicator": "winrm",
     "winrm_username": "{{user `winrm_user`}}",
@@ -47,7 +48,7 @@
   "provisioners": [
     {
       "type": "powershell",
-      "environment_vars": ["HTTP_IP={{user `http_ip`}}","HTTP_PORT={{user `http_port`}}","URL_PATH={{user `url_path`}}"],
+      "environment_vars": ["HTTP_IP={{user `http_ip`}}","HTTP_PORT={{user `http_port`}}","URL_PATH={{user `url_path`}}", "DO_WIN_UPDATES={{user `do_win_updates`}}"],
       "script": "scripts/windows/install-vbox-guest-additions.ps1",
       "elevated_user": "{{user `winrm_user`}}",
       "elevated_password": "{{user `winrm_pass`}}"
@@ -67,6 +68,7 @@
     "http_ip": "192.168.20.2",
     "http_dir": "E:/Software",
     "http_port": "8000",
-    "url_path": "/Oracle/VirtualBox-Guest-Additions/VBoxGuestAdditions.iso"
+    "url_path": "/Oracle/VirtualBox-Guest-Additions/VBoxGuestAdditions.iso",
+    "do_win_updates": "no"
   }
 }
