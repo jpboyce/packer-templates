@@ -1,0 +1,69 @@
+{
+  "builders": [{
+    "type": "vmware-iso",
+    "iso_url": "{{user `iso_url`}}",
+    "iso_checksum": "{{user `iso_checksum`}}",
+    "iso_checksum_type": "{{user `iso_checksum_type`}}",
+    "iso_target_extension": "iso",
+    "boot_command": [
+      "<up><wait><tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort}}/{{ user `kickstart` }}<enter>"
+    ],
+
+
+    "vm_name": "centos7-base-{{isotime \"20060102\"}}",
+    "output_directory": "./output/centos7-base-{{isotime \"20060102150405\"}}/",
+    "guest_os_type": "centos-64",
+    "disk_size": "{{user `disk_size`}}",
+    "disk_type_id": "thin",
+    "http_directory": "{{ user `http_directory` }}",
+    "ssh_username": "{{user `ssh_user`}}",
+    "ssh_password": "{{user `ssh_pass`}}",
+    "ssh_timeout": "2h",
+    "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
+    "shutdown_timeout": "5m",
+    "headless": "{{user `headless`}}",
+    "skip_export": "{{user `skipexport`}}",
+    "keep_registered": "true",
+    "remote_type": "esx5",
+    "remote_host": "esxhost",
+    "remote_datastore": "ISO",
+    "remote_username": "root",
+    "remote_password": "VMware123!",
+    "format": "vmx",
+    "vnc_disable_password": "true",
+    "vmx_data": {
+      "ethernet0.networkName": "VM Network",
+      "ethernet0.present": "TRUE",
+      "ethernet0.startConnected": "TRUE",
+      "ethernet0.virtualDev": "vmxnet3",
+      "ethernet0.addressType": "generated",
+      "ethernet0.generatedAddressOffset": "0",
+      "ethernet0.wakeOnPcktRcv": "FALSE",
+      "memSize": "{{user `memory_size`}}",
+      "numvcpus": "{{user `cpu_count`}}",
+      "scsi0.virtualDev": "pvscsi"
+    }
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "expect_disconnect": "true",
+    "scripts": [
+      "scripts/centos/vbox-prereqs.sh",
+      "scripts/centos/install-vbox-guest-additions.sh"
+    ]
+  }],
+  "variables": {
+    "http_directory": "kickstart/centos7",
+    "kickstart": "ks.cfg",
+    "iso_url": "iso/CentOS-7-x86_64-Minimal-1804.iso",
+    "iso_checksum_type": "md5",
+    "iso_checksum": "fabdc67ff3a1674a489953effa285dfd",
+    "cpu_count": "2",
+    "memory_size": "4096",
+    "disk_size": "40960",
+    "headless": "false",
+    "skipexport": "false",
+    "ssh_user": "vagrant",
+    "ssh_pass": "vagrant"
+  }
+}
