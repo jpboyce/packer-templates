@@ -14,7 +14,7 @@
     "iso_target_extension": "iso",
     "floppy_files": [
       "answer_files/2019/base/autounattend.xml",
-      "scripts/enable-winrm.ps1"
+      "scripts/windows/enable-winrm.ps1"
     ],
     "communicator": "winrm",
     "winrm_username": "{{user `winrm_user`}}",
@@ -48,7 +48,7 @@
     {
       "type": "powershell",
       "environment_vars": ["HTTP_IP={{user `http_ip`}}","HTTP_PORT={{user `http_port`}}","URL_PATH={{user `url_path`}}"],
-      "script": "scripts/install-vbox-guest-additions.ps1",
+      "script": "scripts/windows/install-vbox-guest-additions.ps1",
       "elevated_user": "{{user `winrm_user`}}",
       "elevated_password": "{{user `winrm_pass`}}"
     }
