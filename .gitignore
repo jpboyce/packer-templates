@@ -10,3 +10,4 @@ resources/*
 answer_files/2012r2/autounattend-custom.xml
 answer_files/2012r2/autounattend-Copy.xml
 drivers/*
+packer_cache/*
