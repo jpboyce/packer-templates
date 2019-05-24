@@ -37,7 +37,10 @@
     "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
     "shutdown_timeout": "60m",
     "headless": "{{user `headless`}}",
-    "skip_export": "{{user `skipexport`}}"
+    "skip_export": "{{user `skipexport`}}",
+    "http_directory": "E:/Software",
+    "http_port_min": 8000,
+    "http_port_max": 8000
   }],
   "provisioners": [
     {
