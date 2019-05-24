@@ -34,17 +34,20 @@
       [ "modifyvm", "{{.Name}}", "--clipboard", "bidirectional" ]
     ],
     "post_shutdown_delay": "30s",
-    "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+    "shutdown_command": "shutdown /s /t 1000 /f /d p:4:1 /c \"Packer Shutdown\"",
     "shutdown_timeout": "60m",
     "headless": "{{user `headless`}}",
     "skip_export": "{{user `skipexport`}}",
-    "http_directory": "E:/Software",
-    "http_port_min": 8000,
-    "http_port_max": 8000
+    "http_directory": "{{user `http_dir`}}",
+    "http_port_min": "{{user `http_port`}}",
+    "http_port_max": "{{user `http_port`}}",
+    "guest_additions_mode": "disable",
+    "guest_additions_url": "http://{{user `http_ip`}}:{{user `http_port`}}/Oracle/VirtualBox-Guest-Additions/VBoxGuestAdditions.iso"
   }],
   "provisioners": [
     {
       "type": "powershell",
+      "environment_vars": ["HTTP_IP={{user `http_ip`}}","HTTP_PORT={{user `http_port`}}","URL_PATH={{user `url_path`}}"],
       "script": "scripts/install-vbox-guest-additions.ps1",
       "elevated_user": "{{user `winrm_user`}}",
       "elevated_password": "{{user `winrm_pass`}}"
@@ -60,6 +63,10 @@
     "headless": "false",
     "skipexport": "true",
     "winrm_user": "vagrant",
-    "winrm_pass": "vagrant"
+    "winrm_pass": "vagrant",
+    "http_ip": "192.168.20.2",
+    "http_dir": "E:/Software",
+    "http_port": "8000",
+    "url_path": "/Oracle/VirtualBox-Guest-Additions/VBoxGuestAdditions.iso"
   }
 }
