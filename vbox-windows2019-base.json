@@ -2,7 +2,7 @@
   "builders": [{
     "type": "virtualbox-iso",
     "vm_name": "windos2019-base",
-    "output_directory": "./output/windows2019-base-{{isotime \"20060102\"}}/",
+    "output_directory": "e:/Packer/windows2019-{{isotime \"20060102\"}}.{{isotime \"150405\"}}/",
     "guest_os_type": "Windows2016_64",
     "iso_url":"{{user `iso_url`}}",
     "iso_checksum":"{{user `iso_checksum`}}",
@@ -15,8 +15,7 @@
     "floppy_files": [
       "answer_files/2019/base/autounattend.xml",
       "scripts/windows/enable-winrm.ps1",
-      "scripts/windows/set-powercfg.ps1",
-      "scripts/windows/windowsupdates.ps1"
+      "scripts/windows/set-powercfg.ps1"
     ],
     "communicator": "winrm",
     "winrm_username": "{{user `winrm_user`}}",
@@ -36,8 +35,8 @@
       [ "modifyvm", "{{.Name}}", "--clipboard", "bidirectional" ]
     ],
     "post_shutdown_delay": "30s",
-    "shutdown_command": "shutdown /s /t 1000 /f /d p:4:1 /c \"Packer Shutdown\"",
-    "shutdown_timeout": "60m",
+    "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+    "shutdown_timeout": "10m",
     "headless": "{{user `headless`}}",
     "skip_export": "{{user `skipexport`}}",
     "http_directory": "{{user `http_dir`}}",
@@ -50,9 +49,32 @@
     {
       "type": "powershell",
       "environment_vars": ["HTTP_IP={{user `http_ip`}}","HTTP_PORT={{user `http_port`}}","URL_PATH={{user `url_path`}}", "DO_WIN_UPDATES={{user `do_win_updates`}}"],
-      "scripts": ["scripts/windows/install-vbox-guest-additions.ps1"],
+      "scripts": ["scripts/windows/install-vbox-guest-additions.ps1","scripts/windows/windowsupdates.ps1"],
       "elevated_user": "{{user `winrm_user`}}",
       "elevated_password": "{{user `winrm_pass`}}"
+    },
+    {
+      "type": "windows-restart"
+    },
+    {
+      "type": "powershell",
+      "environment_vars": ["DO_WIN_UPDATES={{user `do_win_updates`}}"],
+      "scripts": ["scripts/windows/windowsupdates.ps1"],
+      "elevated_user": "{{user `winrm_user`}}",
+      "elevated_password": "{{user `winrm_pass`}}"
+    },
+    {
+      "type": "windows-restart"
+    },
+    {
+      "type": "powershell",
+      "environment_vars": ["DO_WIN_UPDATES={{user `do_win_updates`}}"],
+      "scripts": ["scripts/windows/windowsupdates.ps1"],
+      "elevated_user": "{{user `winrm_user`}}",
+      "elevated_password": "{{user `winrm_pass`}}"
+    },
+    {
+      "type": "windows-restart"
     }
   ],
   "variables": {
@@ -63,7 +85,7 @@
     "memory_size": "8192",
     "disk_size": "40960",
     "headless": "false",
-    "skipexport": "true",
+    "skipexport": "false",
     "winrm_user": "vagrant",
     "winrm_pass": "vagrant",
     "http_ip": "192.168.20.2",
