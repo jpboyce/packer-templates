@@ -38,7 +38,7 @@
       "ethernet0.present": "TRUE"
     },
 
-    "shutdown_command": "shutdown /s /t 1000 /f /d p:4:1 /c \"Packer Shutdown\"",
+    "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
     "shutdown_timeout": "10m",
     "skip_export": "{{user `skipexport`}}",
     "communicator": "winrm",
