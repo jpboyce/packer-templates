@@ -16,6 +16,9 @@ Packer templates I've created for my use
 | vbox-windows2012r2-wu-prereqs | VirtualBox | Windows 2012 R2 | Windows Updates prereqs installed | |
 | vbox-windows2012r-base-cis | VirtualBox | Windows 2012 R2 | Base OS and CIS | |
 | vbox-windows2019-base | VirtualBox | Windows 2019 | Guest Additions 5.2.30, Windows Updates | :heavy_check_mark:26/05/2019  |
+| vmware-CentOS-7-base | ESXi | CentOS 7 | VMware Tools 10.3.5 | :heavy_check_mark:08/06/2019  |
+| vmware-windows2016-base | ESXi | Windows 2016 | VMware Tools 10.3.5, Windows Updates |   |
+| vmware-windows2019-base | ESXi | Windows 2019 | VMware Tools 10.3.5, Windows Updates | :heavy_check_mark:07/06/2019  |
 
 ## General Notes
 I've tried to create these templates in a way that optimises execution time.  Some examples of this include:
@@ -25,3 +28,5 @@ I've tried to create these templates in a way that optimises execution time.  So
 ## VMware Notes
 For the VMware-based template to build, the target ESXi host needs to be configured properly.  Specifically, the following command needs to be run:
 `esxcli system settings advanced set -o /Net/GuestIPHack -i 1`
+For the CentOS template, VNC functionality is required to issue boot commands (which tells CentOS to use a kickstart file, which automates the whole process).  In ESXi 6.7, the firewall has to be disabled for this to happen:
+`esxcli network firewall set --enabled false`
