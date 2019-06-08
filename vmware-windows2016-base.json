@@ -1,0 +1,101 @@
+{
+  "builders": [{
+    "type": "vmware-iso",
+    "vm_name": "windos2016-base-{{isotime \"20060102\"}}.{{isotime \"150405\"}}",
+    "output_directory": "./output/windows2016-{{isotime \"20060102\"}}.{{isotime \"150405\"}}/",
+    "iso_url":"{{user `iso_url`}}",
+    "iso_checksum":"{{user `iso_checksum`}}",
+    "iso_checksum_type":"{{user `iso_checksum_type`}}",
+    "disk_size": "{{user `disk_size`}}",
+    "disk_type_id": "thin",
+    "display_name": "windos2016-base-{{isotime \"20060102\"}}.{{isotime \"150405\"}}",
+    "floppy_files": [
+      "answer_files/2016/autounattend.xml",
+      "drivers/vmware/mouse/Win8/*.*",
+      "drivers/vmware/pvscsi/Win8/amd64/*.*",
+      "drivers/vmware/vmxnet3/Win8/*.*",
+      "scripts/windows/enable-winrm.ps1",
+      "scripts/windows/set-powercfg.ps1"
+    ],
+    "guest_os_type": "windows9srv-64",
+    "headless": "{{user `headless`}}",
+    "http_directory": "{{user `http_dir`}}",
+    "http_port_min": "{{user `http_port`}}",
+    "http_port_max": "{{user `http_port`}}",
+
+    "remote_type": "esx5",
+    "remote_host": "{{user `esxi_host`}}",
+    "remote_datastore": "{{user `esxi_datastore`}}",
+    "remote_username": "{{user `esxi_user`}}",
+    "remote_password": "{{user `esxi_password`}}",
+    "vmx_data": {
+      "ethernet0.networkName": "VM Network",
+      "memsize": "{{user `memory_size`}}",
+      "numvcpus": "{{user `cpu_count`}}",
+      "virtualHW.version": "10",
+      "scsi0.virtualDev": "pvscsi",
+      "ethernet0.virtualDev": "vmxnet3",
+      "ethernet0.present": "TRUE"
+    },
+
+    "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+    "shutdown_timeout": "10m",
+    "skip_export": "{{user `skipexport`}}",
+    "communicator": "winrm",
+    "winrm_username": "{{user `winrm_user`}}",
+    "winrm_password": "{{user `winrm_pass`}}",
+    "winrm_timeout": "12h",
+    "disable_vnc": "true"
+
+  }],
+  "provisioners": [
+    {
+      "type": "powershell",
+      "environment_vars": ["HTTP_IP={{user `http_ip`}}","HTTP_PORT={{user `http_port`}}","VMWARE_TOOLS_PATH={{user `vmware_tools_path`}}", "DO_WIN_UPDATES={{user `do_win_updates`}}"],
+      "scripts": ["scripts/windows/install-vmware-tools.ps1"],
+      "elevated_user": "{{user `winrm_user`}}",
+      "elevated_password": "{{user `winrm_pass`}}"
+    },
+    {
+      "type": "windows-restart"
+    },
+    {
+      "type": "powershell",
+      "environment_vars": ["DO_WIN_UPDATES={{user `do_win_updates`}}"],
+      "scripts": ["scripts/windows/windowsupdates.ps1"],
+      "elevated_user": "{{user `winrm_user`}}",
+      "elevated_password": "{{user `winrm_pass`}}"
+    },
+    {
+      "type": "windows-restart"
+    },
+    {
+      "type": "powershell",
+      "environment_vars": ["DO_WIN_UPDATES={{user `do_win_updates`}}"],
+      "scripts": ["scripts/windows/windowsupdates.ps1"],
+      "elevated_user": "{{user `winrm_user`}}",
+      "elevated_password": "{{user `winrm_pass`}}"
+    },
+    {
+      "type": "windows-restart"
+    }
+  ],
+  "variables": {
+    "iso_url": "file://E:/Software/Microsoft/Windows-2016/Windows_Server_2016_Datacenter_EVAL_en-us_14393_refresh.ISO",
+    "iso_checksum_type": "md5",
+    "iso_checksum": "70721288bbcdfe3239d8f8c0fae55f1f",
+    "cpu_count": "2",
+    "memory_size": "8192",
+    "disk_size": "51200",
+    "headless": "false",
+    "skipexport": "true",
+    "winrm_user": "vagrant",
+    "winrm_pass": "vagrant",
+    "http_ip": "192.168.20.2",
+    "http_dir": "E:/Software",
+    "http_port": "8000",
+    "url_path": "/Oracle/VirtualBox-Guest-Additions/VBoxGuestAdditions.iso",
+    "vmware_tools_path": "/VMware/VMware_Tools/VMware-tools-windows-10.3.5-10430147.iso",
+    "do_win_updates": "yes"
+  }
+}
