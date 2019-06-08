@@ -5,65 +5,60 @@
     "iso_checksum": "{{user `iso_checksum`}}",
     "iso_checksum_type": "{{user `iso_checksum_type`}}",
     "iso_target_extension": "iso",
-    "boot_command": [
-      "<up><wait><tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort}}/{{ user `kickstart` }}<enter>"
+    "vm_name": "centos7-base-{{isotime \"20060102\"}}.{{isotime \"150405\"}}",
+    "output_directory": "./output/centos7-base-{{isotime \"20060102\"}}.{{isotime \"150405\"}}/",
+    "floppy_files": [
+      "kickstart/centos7/ks.cfg"
     ],
 
-
-    "vm_name": "centos7-base-{{isotime \"20060102\"}}",
-    "output_directory": "./output/centos7-base-{{isotime \"20060102150405\"}}/",
-    "guest_os_type": "centos-64",
+    "boot_command": [
+      "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort}}/{{ user `kickstart` }}<enter><wait>"
+    ],
+    "boot_wait": "10s",
     "disk_size": "{{user `disk_size`}}",
     "disk_type_id": "thin",
-    "http_directory": "{{ user `http_directory` }}",
-    "ssh_username": "{{user `ssh_user`}}",
-    "ssh_password": "{{user `ssh_pass`}}",
-    "ssh_timeout": "2h",
-    "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
-    "shutdown_timeout": "5m",
+    "guest_os_type": "centos7_64Guest",
     "headless": "{{user `headless`}}",
-    "skip_export": "{{user `skipexport`}}",
-    "keep_registered": "true",
+    "http_directory": "{{ user `http_directory` }}",
+
     "remote_type": "esx5",
-    "remote_host": "esxhost",
-    "remote_datastore": "ISO",
-    "remote_username": "root",
-    "remote_password": "VMware123!",
-    "format": "vmx",
-    "vnc_disable_password": "true",
+    "remote_host": "{{user `esxi_host`}}",
+    "remote_datastore": "{{user `esxi_datastore`}}",
+    "remote_username": "{{user `esxi_user`}}",
+    "remote_password": "{{user `esxi_password`}}",
+
     "vmx_data": {
       "ethernet0.networkName": "VM Network",
       "ethernet0.present": "TRUE",
       "ethernet0.startConnected": "TRUE",
       "ethernet0.virtualDev": "vmxnet3",
-      "ethernet0.addressType": "generated",
-      "ethernet0.generatedAddressOffset": "0",
-      "ethernet0.wakeOnPcktRcv": "FALSE",
       "memSize": "{{user `memory_size`}}",
       "numvcpus": "{{user `cpu_count`}}",
+      "virtualHW.version": "10",
       "scsi0.virtualDev": "pvscsi"
-    }
+    },
+    "ssh_username": "{{user `ssh_user`}}",
+    "ssh_password": "{{user `ssh_pass`}}",
+    "ssh_timeout": "2h",
+    "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
+    "shutdown_timeout": "5m",
+    "skip_export": "{{user `skipexport`}}",
+    "vnc_disable_password": true
   }],
-  "provisioners": [{
-    "type": "shell",
-    "expect_disconnect": "true",
-    "scripts": [
-      "scripts/centos/vbox-prereqs.sh",
-      "scripts/centos/install-vbox-guest-additions.sh"
-    ]
-  }],
+  "provisioners": [],
   "variables": {
     "http_directory": "kickstart/centos7",
     "kickstart": "ks.cfg",
-    "iso_url": "iso/CentOS-7-x86_64-Minimal-1804.iso",
+    "iso_url": "file://E:/Software/CentOS/7/CentOS-7-x86_64-Minimal-1810.iso",
     "iso_checksum_type": "md5",
-    "iso_checksum": "fabdc67ff3a1674a489953effa285dfd",
+    "iso_checksum": "bd43d41e01c2a46b3cb23eb9139dce4b",
     "cpu_count": "2",
     "memory_size": "4096",
     "disk_size": "40960",
     "headless": "false",
-    "skipexport": "false",
+    "skipexport": "true",
     "ssh_user": "vagrant",
     "ssh_pass": "vagrant"
+
   }
 }
