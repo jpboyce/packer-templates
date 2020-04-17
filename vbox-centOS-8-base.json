@@ -48,7 +48,7 @@
     ]
   }],
   "variables": {
-    "http_directory": "kickstart/centos7",
+    "http_directory": "kickstart/centos8",
     "kickstart": "ks.cfg",
     "iso_url": "iso/CentOS-8.1.1911-x86_64-dvd1.iso",
     "iso_checksum_type": "md5",
