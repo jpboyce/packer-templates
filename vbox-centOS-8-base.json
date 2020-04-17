@@ -1,0 +1,64 @@
+{
+  "builders": [{
+    "type": "virtualbox-iso",
+    "vm_name": "centos8-base",
+    "output_directory": "./output/centos8-base-{{isotime \"20060102150405\"}}/",
+    "guest_os_type": "RedHat_64",
+    "iso_url": "{{user `iso_url`}}",
+    "iso_checksum": "{{user `iso_checksum`}}",
+    "iso_checksum_type": "{{user `iso_checksum_type`}}",
+    "disk_size": "{{user `disk_size`}}",
+    "hard_drive_interface": "sata",
+    "hard_drive_nonrotational": "true",
+    "iso_interface": "sata",
+    "iso_target_extension": "iso",
+    "boot_command": [
+      "<up><wait><tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort}}/{{ user `kickstart` }}<enter>"
+    ],
+    "http_directory": "{{ user `http_directory` }}",
+    "ssh_username": "{{user `ssh_user`}}",
+    "ssh_password": "{{user `ssh_pass`}}",
+    "ssh_timeout": "2h",
+    "vboxmanage": [
+      ["modifyvm", "{{.Name}}", "--cpus", "{{user `cpu_count`}}"],
+      ["modifyvm", "{{.Name}}", "--memory", "{{user `memory_size`}}"],
+      ["modifyvm", "{{.Name}}", "--vram", "48"],
+      ["modifyvm", "{{.Name}}", "--hwvirtex", "on"],
+      ["modifyvm", "{{.Name}}", "--nestedpaging", "on"],
+      ["modifyvm", "{{.Name}}", "--largepages", "on"],
+      ["modifyvm", "{{.Name}}", "--vtxvpid", "on"],
+      ["modifyvm", "{{.Name}}", "--vtxux", "on"],
+      ["modifyvm", "{{.Name}}", "--paravirtprovider", "hyperv"],
+      ["modifyvm", "{{.Name}}", "--audio", "none"],
+      ["modifyvm", "{{.Name}}", "--clipboard", "bidirectional"]
+    ],
+    "post_shutdown_delay": "30s",
+    "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
+    "shutdown_timeout": "5m",
+    "headless": "{{user `headless`}}",
+    "skip_export": "{{user `skipexport`}}"
+  }
+  ],
+  "provisioners": [{
+    "type": "shell",
+    "expect_disconnect": "true",
+    "scripts": [
+      "scripts/centos/vbox-prereqs.sh",
+      "scripts/centos/install-vbox-guest-additions.sh"
+    ]
+  }],
+  "variables": {
+    "http_directory": "kickstart/centos7",
+    "kickstart": "ks.cfg",
+    "iso_url": "iso/CentOS-8.1.1911-x86_64-dvd1.iso",
+    "iso_checksum_type": "md5",
+    "iso_checksum": "8d0573c5fb5444007936b652d8c6724d",
+    "cpu_count": "2",
+    "memory_size": "4096",
+    "disk_size": "40960",
+    "headless": "false",
+    "skipexport": "false",
+    "ssh_user": "vagrant",
+    "ssh_pass": "vagrant"
+  }
+}
