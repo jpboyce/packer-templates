@@ -43,7 +43,7 @@
     "type": "shell",
     "expect_disconnect": "true",
     "scripts": [
-      "scripts/centos/vbox-prereqs.sh",
+      "scripts/centos/vbox-prereqs-8.sh",
       "scripts/centos/install-vbox-guest-additions.sh"
     ]
   }],
