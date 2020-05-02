@@ -4,11 +4,11 @@ iso/*.iso
 # ignore output folders
 output-*/*
 output/*
+boxes/*
 
 # ignore resources folder
 resources/*
 answer_files/2012r2/autounattend-custom.xml
 answer_files/2012r2/autounattend-Copy.xml
-drivers/*
 packer_cache/*
 variables.json
