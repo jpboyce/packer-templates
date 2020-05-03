@@ -1,7 +1,7 @@
 # Install VMware Tools using the ISO that's uploaded to the VM
 
 # Setup variables
-$iso_checksum = "fde918a5a315650c183f363b5b3f6121814d71828008b086003013c9ed8c93e4"
+$iso_checksum = "8f1cc3181055891b98672f715e0ca7bbe4018960eae945d7a4b9f640c44c3d79"
 
 # Start transcript log
 Start-Transcript -Verbose
