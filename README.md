@@ -1,5 +1,12 @@
 # packer-templates
-Packer templates I've created for my use
+Packer templates I've created for various work and personal use scenarios.  Acknowledgement to [Joe Fitzgerald's templates](https://github.com/joefitzgerald/packer-windows) that got me started on this.
+
+## Platform Versions
+Unless otherwise noted, the templates have been tested on the following products and versions:
+* Packer v
+* VMware ESXi 6.7
+* VMware Tools 11.0.6
+* Oracle Virtualbox 6.0.18
 
 ## Template List
 
