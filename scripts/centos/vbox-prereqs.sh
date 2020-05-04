@@ -16,8 +16,8 @@ echo "Installing YUM utils..."
 sudo yum -y install yum-utils
 
 # Run an update first
-echo "Running a YUM Update..."
-sudo yum -y update
+#echo "Running a YUM Update..."
+#sudo yum -y update
 
 # Install prerequisite items
 echo "Installing prerequisite items via YUM..."
