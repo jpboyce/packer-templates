@@ -1,8 +1,8 @@
 {
   "builders": [{
     "type": "virtualbox-iso",
-    "vm_name": "centos7-base",
-    "output_directory": "./output/centos7-base-{{isotime \"20060102150405\"}}/",
+    "vm_name": "centos-7",
+    "output_directory": "./output/centos-7-base-{{isotime \"20060102150405\"}}/",
     "guest_os_type": "RedHat_64",
     "iso_url": "{{user `iso_url`}}",
     "iso_checksum": "{{user `iso_checksum`}}",
