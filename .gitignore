@@ -4,7 +4,7 @@ iso/*.iso
 # ignore output folders
 output-*/*
 output/*
-boxes/*
+boxes/*.box
 
 # ignore resources folder
 resources/*
