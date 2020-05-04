@@ -20,9 +20,9 @@ Unless otherwise noted, the templates have been tested on the following products
 ### VirtualBox
 | File Name | Platform | OS | Description | Last Verified |
 | --------- | ----------- | ----------- | ----------- | ----------- |
-| vbox-centOS-8-base | VirtualBox | CentOS 8 | Base OS | |
-| vbox-centOS-7-base | VirtualBox | CentOS 7 | Base OS | |
+| vbox-centOS-7-base | VirtualBox | CentOS 7 | Base OS | 2020-05-05 |
 | vbox-centOS-7-updates | VirtualBox | CentOS 7 | Updates installed | |
+| vbox-centOS-8-base | VirtualBox | CentOS 8 | Base OS | |
 | vbox-windows2012r2-base | VirtualBox | Windows 2012 R2 | Base OS | |
 | vbox-windows2012r2core-base | VirtualBox | Windows 2012 R2 | Base OS, Core installation | |
 | vbox-windows2012r2-updates | VirtualBox | Windows 2012 R2 | Windows Updates installed | |
