@@ -47,3 +47,15 @@ For the VMware-based template to build, the target ESXi host needs to be configu
 `esxcli system settings advanced set -o /Net/GuestIPHack -i 1`
 For the CentOS template, VNC functionality is required to issue boot commands (which tells CentOS to use a kickstart file, which automates the whole process).  In ESXi 6.7, the firewall has to be disabled for this to happen:
 `esxcli network firewall set --enabled false`
+
+## Folder Structure
+Below is a brief explaination of the function/purpose of each folder in this repo:
+* answer_files - Contains the unattend.xml files used by Windows templates
+* boxes - The location where VirtualBox templates export box files to
+* drivers - Driver files used by some templates (currently Vmware drivers for Windows boxes)
+* iso - Where ISO files are stored
+* kickstart - The location for kickstart files used by the CentOS templates
+* output - The default output folder for VirtualBox templates
+* resources - ?
+* scripts - scripting files (bash and PowerShell) used by various templates
+* vagrant-templates - Template files for Vagrant
