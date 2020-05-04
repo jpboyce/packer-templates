@@ -1,0 +1,19 @@
+{
+  "ext_esxi_host": "esxi.contoso.com",
+  "ext_esxi_user": "packer",
+  "ext_esxi_password": "Th1sI$ABadP@ssw0rd",
+  "ext_esxi_datastore": "datastore1",
+
+  "ext_vc_server": "vcenter.contoso.com",
+  "ext_vc_username": "packer@vsphere.local",
+  "ext_vc_password": "Th1sI$ABadP@ssw0rd",
+  "ext_vc_datastore": "datastore1",
+  "ext_vc_datacenter": "datacenter",
+  "ext_vc_network": "VM Network",
+  "ext_vc_resource_pool": "packer",
+  "ext_vc_cluster": "clustername",
+
+  "ext_aws_access_key": "aws-access-key",
+  "ext_aws_secret_key": "aws-secret-key"
+
+}
