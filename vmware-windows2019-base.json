@@ -94,7 +94,7 @@
     "http_ip": "192.168.20.2",
     "http_dir": "E:/Software",
     "http_port": "8000",
-    "vmware_tools_path": "/VMware/VMware_Tools/VMware-tools-windows-10.3.5-10430147.iso",
+    "vmware_tools_path": "/VMware/VMware_Tools/VMware-tools-windows-11.0.6-15940789.iso",
     "do_win_updates": "yes"
   }
 }
