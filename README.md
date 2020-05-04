@@ -8,6 +8,11 @@ Unless otherwise noted, the templates have been tested on the following products
 * VMware Tools 11.0.6
 * Oracle Virtualbox 6.0.18
 
+## Usage
+Most of these will build just by specifying the template file.  Some have variables/values that may be deemed sensitive or "secrets" and need to be defined either in an external variables file or as part of the command line.  These variables are prefixed with `ext_`.  A sanitised example of such a file is availble at [here](https://github.com/jpboyce/packer-templates/blob/master/example-variables.json).  To run referencing an external variables file:
+`packer build -var-file=MyVariablesFile.json buildFile.json`
+Alternatively you could specify them as part of the command line using the `-var` option
+
 ## Template List
 
 ### VMware
