@@ -1,0 +1,68 @@
+{
+  "builders": [{
+    "type": "vsphere-iso",
+
+    "vcenter_server":      "{{user `ext_vc_server`}}",
+    "username":            "{{user `ext_vc_username`}}",
+    "password":            "{{user `ext_vc_password`}}",
+    "insecure_connection": "true",
+
+    "vm_name": "centos-8-base-{{isotime \"20060102\"}}.{{isotime \"150405\"}}",
+    "host": "{{user `ext_esxi_host`}}",
+    "cluster": "{{user `ext_vc_cluster`}}",
+    "resource_pool": "{{user `ext_vc_resource_pool`}}",
+    "datastore": "{{user `ext_vc_datastore`}}",
+    "guest_os_type": "centos8_64Guest",
+    "ssh_username": "{{user `ssh_user`}}",
+    "ssh_password": "{{user `ssh_pass`}}",
+    "ssh_timeout": "2h",
+
+    "CPUs": "{{user `cpu_count`}}",
+    "RAM": "{{user `memory_size`}}",
+    "RAM_reserve_all": false,
+
+    "disk_controller_type":  "pvscsi",
+    "disk_size":        "{{user `disk_size`}}",
+    "disk_thin_provisioned": false,
+
+    "network_card": "vmxnet3",
+    "iso_paths": [
+      "{{user `os_iso_url`}}",
+      "{{user `tools_iso_url`}}"
+    ],
+
+    "floppy_files": [
+      "answer_files/2019/vcenter/autounattend.xml",
+      "drivers/vmware/pvscsi/Win8/*.*",
+      "drivers/vmware/vmxnet3/Win8/*.*",
+      "drivers/vmware/mouse/Win8/*.*",
+      "scripts/windows/enable-winrm.ps1",
+      "scripts/windows/set-powercfg.ps1"
+    ],
+
+    "http_directory": "{{user `http_dir`}}",
+    "http_port_min": "{{user `http_port`}}",
+    "http_port_max": "{{user `http_port`}}",
+
+    "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+    "shutdown_timeout": "10m",
+    "winrm_timeout": "12h"
+
+  }],
+  "provisioners": [
+  ],
+  "variables": {
+    "os_iso_url": "[nas01-iso] microsoft/17763.379.190312-0539.rs5_release_svc_refresh_SERVER_EVAL_x64FRE_en-us.iso",
+    "tools_iso_url": "[nas01-iso] vmware/VMware-tools-windows-11.0.6-15940789.iso",
+    "floppy_path": "[nas01-iso] vmware/pvscsi-Windows8.flp",
+    "cpu_count": "2",
+    "memory_size": "4096",
+    "disk_size": "40960",
+    "winrm_user": "vagrant",
+    "winrm_pass": "vagrant",
+    "http_ip": "192.168.20.2",
+    "http_dir": "E:/Software",
+    "http_port": "8000",
+    "do_win_updates": "yes"
+  }
+}
