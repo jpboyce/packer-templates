@@ -7,7 +7,6 @@
     "password":            "{{user `ext_vc_password`}}",
     "insecure_connection": "true",
 
-
     "vm_name": "windos2019-base-{{isotime \"20060102\"}}.{{isotime \"150405\"}}",
     "host": "{{user `ext_esxi_host`}}",
     "cluster": "{{user `ext_vc_cluster`}}",
@@ -27,12 +26,13 @@
     "disk_size":        "{{user `disk_size`}}",
     "disk_thin_provisioned": false,
 
+    "notes": "{{user `vm_notes`}}",
+
     "network_card": "vmxnet3",
     "iso_paths": [
       "{{user `os_iso_url`}}",
       "{{user `tools_iso_url`}}"
     ],
-
 
     "floppy_files": [
       "answer_files/2019/vcenter/autounattend.xml",
@@ -53,6 +53,26 @@
 
   }],
   "provisioners": [
+    {
+      "type": "powershell",
+      "environment_vars": ["DO_WIN_UPDATES={{user `do_win_updates`}}"],
+      "scripts": ["scripts/windows/windowsupdates.ps1"],
+      "elevated_user": "{{user `winrm_user`}}",
+      "elevated_password": "{{user `winrm_pass`}}"
+    },
+    {
+      "type": "windows-restart"
+    },
+    {
+      "type": "powershell",
+      "environment_vars": ["DO_WIN_UPDATES={{user `do_win_updates`}}"],
+      "scripts": ["scripts/windows/windowsupdates.ps1"],
+      "elevated_user": "{{user `winrm_user`}}",
+      "elevated_password": "{{user `winrm_pass`}}"
+    },
+    {
+      "type": "windows-restart"
+    }
   ],
   "variables": {
     "os_iso_url": "[nas01-iso] microsoft/17763.379.190312-0539.rs5_release_svc_refresh_SERVER_EVAL_x64FRE_en-us.iso",
@@ -66,6 +86,7 @@
     "http_ip": "192.168.20.2",
     "http_dir": "E:/Software",
     "http_port": "8000",
-    "do_win_updates": "yes"
+    "do_win_updates": "yes",
+    "vm_notes": "Packer template provisioned on {{isotime \"20060102\"}}.{{isotime \"150405\"}}"
   }
 }
