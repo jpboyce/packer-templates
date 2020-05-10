@@ -32,21 +32,19 @@
     ],
 
     "floppy_files": [
-      "answer_files/2019/vcenter/autounattend.xml",
-      "drivers/vmware/pvscsi/Win8/*.*",
-      "drivers/vmware/vmxnet3/Win8/*.*",
-      "drivers/vmware/mouse/Win8/*.*",
-      "scripts/windows/enable-winrm.ps1",
-      "scripts/windows/set-powercfg.ps1"
+      "kickstart/centos8/ks.cfg"
     ],
 
     "http_directory": "{{user `http_dir`}}",
     "http_port_min": "{{user `http_port`}}",
     "http_port_max": "{{user `http_port`}}",
 
-    "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
-    "shutdown_timeout": "10m",
-    "winrm_timeout": "12h"
+    "boot_command": [
+      "<tab> text ks=floppy <enter><wait>"
+    ],
+
+    "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
+    "shutdown_timeout": "5m"
 
   }],
   "provisioners": [
@@ -54,7 +52,6 @@
   "variables": {
     "os_iso_url": "[nas01-iso] microsoft/17763.379.190312-0539.rs5_release_svc_refresh_SERVER_EVAL_x64FRE_en-us.iso",
     "tools_iso_url": "[nas01-iso] vmware/VMware-tools-windows-11.0.6-15940789.iso",
-    "floppy_path": "[nas01-iso] vmware/pvscsi-Windows8.flp",
     "cpu_count": "2",
     "memory_size": "4096",
     "disk_size": "40960",
@@ -62,7 +59,6 @@
     "winrm_pass": "vagrant",
     "http_ip": "192.168.20.2",
     "http_dir": "E:/Software",
-    "http_port": "8000",
-    "do_win_updates": "yes"
+    "http_port": "8000"
   }
 }
