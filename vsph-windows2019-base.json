@@ -25,7 +25,7 @@
 
     "disk_controller_type":  "pvscsi",
     "disk_size":        "{{user `disk_size`}}",
-    "disk_thin_provisioned": true,
+    "disk_thin_provisioned": false,
 
     "network_card": "vmxnet3",
     "iso_paths": [
