@@ -20,7 +20,8 @@
     "CPUs": "{{user `cpu_count`}}",
     "RAM": "{{user `memory_size`}}",
     "RAM_reserve_all": false,
-    "firmware": "efi",
+    "firmware": "bios",
+    "boot_order": "disk,cdrom",
 
     "disk_controller_type":  "pvscsi",
     "disk_size":        "{{user `disk_size`}}",
