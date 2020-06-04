@@ -1,7 +1,7 @@
 {
   "builders": [{
     "type": "virtualbox-iso",
-    "vm_name": "windos-2019",
+    "vm_name": "windows-2019",
     "output_directory": "e:/Packer/windows-2019-base-{{isotime \"20060102\"}}.{{isotime \"150405\"}}/",
     "guest_os_type": "Windows2016_64",
     "iso_url":"{{user `iso_url`}}",
