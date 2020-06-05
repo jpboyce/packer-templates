@@ -2,7 +2,7 @@
   "builders": [{
     "type": "virtualbox-iso",
     "vm_name": "windows-2019",
-    "output_directory": "e:/Packer/windows-2019-base-{{isotime \"20060102\"}}.{{isotime \"150405\"}}/",
+    "output_directory": "./output/windows-2019-base-{{isotime \"20060102\"}}.{{isotime \"150405\"}}/",
     "guest_os_type": "Windows2016_64",
     "iso_url":"{{user `iso_url`}}",
     "iso_checksum":"{{user `iso_checksum`}}",
@@ -49,7 +49,7 @@
     {
       "type": "powershell",
       "environment_vars": ["HTTP_IP={{user `http_ip`}}","HTTP_PORT={{user `http_port`}}","URL_PATH={{user `url_path`}}", "DO_WIN_UPDATES={{user `do_win_updates`}}"],
-      "scripts": ["scripts/windows/install-vbox-guest-additions.ps1","scripts/windows/windowsupdates.ps1"],
+      "scripts": ["scripts/windows/install-vbox-guest-additions.ps1"],
       "elevated_user": "{{user `winrm_user`}}",
       "elevated_password": "{{user `winrm_pass`}}"
     },
@@ -57,25 +57,16 @@
       "type": "windows-restart"
     },
     {
-      "type": "powershell",
-      "environment_vars": ["DO_WIN_UPDATES={{user `do_win_updates`}}"],
-      "scripts": ["scripts/windows/windowsupdates.ps1"],
-      "elevated_user": "{{user `winrm_user`}}",
-      "elevated_password": "{{user `winrm_pass`}}"
-    },
-    {
-      "type": "windows-restart"
-    },
-    {
-      "type": "powershell",
-      "environment_vars": ["DO_WIN_UPDATES={{user `do_win_updates`}}"],
-      "scripts": ["scripts/windows/windowsupdates.ps1"],
-      "elevated_user": "{{user `winrm_user`}}",
-      "elevated_password": "{{user `winrm_pass`}}"
-    },
-    {
-      "type": "windows-restart"
+      "type": "windows-shell",
+      "inline": ["REG ADD HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /v LocalAccountTokenFilterPolicy /t REG_DWORD /d 1 /f"]
     }
+  ],
+  "post-processors": [
+    [{
+      "type": "vagrant",
+      "vagrantfile_template": "vagrant-templates/windows-2019.template",
+      "output": "./boxes/windows-2019-base-{{isotime \"20060102150405\"}}.box"
+    }]
   ],
   "variables": {
     "iso_url": "file://E:/Software/Microsoft/Windows-2019/17763.379.190312-0539.rs5_release_svc_refresh_SERVER_EVAL_x64FRE_en-us.iso",
@@ -92,6 +83,7 @@
     "http_dir": "E:/Software",
     "http_port": "8000",
     "url_path": "/Oracle/VirtualBox-Guest-Additions/VBoxGuestAdditions.iso",
-    "do_win_updates": "yes"
+    "do_win_updates": "yes",
+    "keep_registered": "true"
   }
 }
