@@ -1,0 +1,105 @@
+{
+  "builders": [{
+    "type": "virtualbox-iso",
+    "vm_name": "windos2019-base",
+    "output_directory": "e:/Packer/windows2019-{{isotime \"20060102\"}}.{{isotime \"150405\"}}/",
+    "guest_os_type": "Windows2016_64",
+    "iso_url":"{{user `iso_url`}}",
+    "iso_checksum":"{{user `iso_checksum`}}",
+    "iso_checksum_type":"{{user `iso_checksum_type`}}",
+    "disk_size": "{{user `disk_size`}}",
+    "hard_drive_interface": "sata",
+    "hard_drive_nonrotational": "true",
+    "iso_interface": "sata",
+    "iso_target_extension": "iso",
+    "floppy_files": [
+      "answer_files/2019/base/autounattend.xml",
+      "scripts/windows/enable-winrm.ps1",
+      "scripts/windows/set-powercfg.ps1"
+    ],
+    "communicator": "winrm",
+    "winrm_username": "{{user `winrm_user`}}",
+    "winrm_password": "{{user `winrm_pass`}}",
+    "winrm_timeout": "12h",
+    "vboxmanage": [
+      [ "modifyvm", "{{.Name}}", "--cpus", "{{user `cpu_count`}}" ],
+      [ "modifyvm", "{{.Name}}", "--memory", "{{user `memory_size`}}" ],
+      [ "modifyvm", "{{.Name}}", "--vram", "48" ],
+      [ "modifyvm", "{{.Name}}", "--hwvirtex", "on" ],
+      [ "modifyvm", "{{.Name}}", "--nestedpaging", "on" ],
+      [ "modifyvm", "{{.Name}}", "--largepages", "on" ],
+      [ "modifyvm", "{{.Name}}", "--vtxvpid", "on" ],
+      [ "modifyvm", "{{.Name}}", "--vtxux", "on" ],
+      [ "modifyvm", "{{.Name}}", "--paravirtprovider", "hyperv" ],
+      [ "modifyvm", "{{.Name}}", "--audio", "none" ],
+      [ "modifyvm", "{{.Name}}", "--clipboard", "bidirectional" ]
+    ],
+    "post_shutdown_delay": "30s",
+    "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+    "shutdown_timeout": "10m",
+    "headless": "{{user `headless`}}",
+    "skip_export": "{{user `skipexport`}}",
+    "http_directory": "{{user `http_dir`}}",
+    "http_port_min": "{{user `http_port`}}",
+    "http_port_max": "{{user `http_port`}}",
+    "guest_additions_mode": "disable",
+    "guest_additions_url": "http://{{user `http_ip`}}:{{user `http_port`}}/Oracle/VirtualBox-Guest-Additions/VBoxGuestAdditions.iso"
+  }],
+  "provisioners": [
+    {
+      "type": "powershell",
+      "environment_vars": ["HTTP_IP={{user `http_ip`}}","HTTP_PORT={{user `http_port`}}","URL_PATH={{user `url_path`}}", "DO_WIN_UPDATES={{user `do_win_updates`}}"],
+      "scripts": ["scripts/windows/install-vbox-guest-additions.ps1","scripts/windows/windowsupdates.ps1"],
+      "elevated_user": "{{user `winrm_user`}}",
+      "elevated_password": "{{user `winrm_pass`}}"
+    },
+    {
+      "type": "windows-restart"
+    },
+    {
+      "type": "powershell",
+      "environment_vars": ["DO_WIN_UPDATES={{user `do_win_updates`}}"],
+      "scripts": ["scripts/windows/windowsupdates.ps1"],
+      "elevated_user": "{{user `winrm_user`}}",
+      "elevated_password": "{{user `winrm_pass`}}"
+    },
+    {
+      "type": "windows-restart"
+    },
+    {
+      "type": "powershell",
+      "environment_vars": ["DO_WIN_UPDATES={{user `do_win_updates`}}"],
+      "scripts": ["scripts/windows/windowsupdates.ps1"],
+      "elevated_user": "{{user `winrm_user`}}",
+      "elevated_password": "{{user `winrm_pass`}}"
+    },
+    {
+      "type": "windows-restart"
+    }
+  ],
+  "variables": {
+    "iso_url": "file://E:/Software/Microsoft/Windows-2019/17763.379.190312-0539.rs5_release_svc_refresh_SERVER_EVAL_x64FRE_en-us.iso",
+    "iso_checksum_type": "md5",
+    "iso_checksum": "22ad0e83e20af5233a6ff453e6e257df",
+    "cpu_count": "2",
+    "memory_size": "8192",
+    "disk_size": "40960",
+    "headless": "false",
+    "skipexport": "false",
+    "winrm_user": "vagrant",
+    "winrm_pass": "vagrant",
+    "http_ip": "192.168.20.2",
+    "http_dir": "E:/Software",
+    "http_port": "8000",
+    "url_path": "/Oracle/VirtualBox-Guest-Additions/VBoxGuestAdditions.iso",
+    "do_win_updates": "yes"
+  },
+  "post-processors": [
+    {
+      "keep_input_artifact": false,
+      "output": "windos2019-base_{{.Provider}}.box",
+      "type": "vagrant",
+      "vagrantfile_template": "vagrant-templates/windows2019.template"
+    }
+  ]
+}
