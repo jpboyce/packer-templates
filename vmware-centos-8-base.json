@@ -1,0 +1,64 @@
+{
+  "builders": [{
+    "type": "vmware-iso",
+    "iso_url": "{{user `iso_url`}}",
+    "iso_checksum": "{{user `iso_checksum`}}",
+    "iso_checksum_type": "{{user `iso_checksum_type`}}",
+    "iso_target_extension": "iso",
+    "vm_name": "centos-8-base-{{isotime \"20060102\"}}.{{isotime \"150405\"}}",
+    "floppy_files": [
+      "kickstart/centos8/ks.cfg"
+    ],
+
+    "boot_command": [
+      "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort}}/{{ user `kickstart` }}<enter><wait>"
+    ],
+    "boot_wait": "10s",
+    "disk_size": "{{user `disk_size`}}",
+    "disk_type_id": "thin",
+    "guest_os_type": "centos8_64Guest",
+    "headless": "{{user `headless`}}",
+    "http_directory": "{{ user `http_directory` }}",
+
+    "remote_type": "esx5",
+    "remote_host": "{{user `ext_esxi_host`}}",
+    "remote_datastore": "{{user `ext_esxi_datastore`}}",
+    "remote_username": "{{user `ext_esxi_user`}}",
+    "remote_password": "{{user `ext_esxi_password`}}",
+
+    "vmx_data": {
+      "ethernet0.networkName": "VM Network",
+      "ethernet0.present": "TRUE",
+      "ethernet0.startConnected": "TRUE",
+      "ethernet0.virtualDev": "vmxnet3",
+      "memSize": "{{user `memory_size`}}",
+      "numvcpus": "{{user `cpu_count`}}",
+      "virtualHW.version": "10",
+      "scsi0.virtualDev": "pvscsi"
+    },
+    "ssh_username": "{{user `ssh_user`}}",
+    "ssh_password": "{{user `ssh_pass`}}",
+    "ssh_timeout": "2h",
+    "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
+    "shutdown_timeout": "5m",
+    "skip_export": "{{user `skipexport`}}",
+    "keep_registered": true,
+    "vnc_disable_password": true
+  }],
+  "provisioners": [],
+  "variables": {
+    "http_directory": "kickstart/centos8",
+    "kickstart": "ks.cfg",
+    "iso_url": "file://E:/Software/CentOS/8/CentOS-8.1.1911-x86_64-dvd1.iso",
+    "iso_checksum_type": "md5",
+    "iso_checksum": "bd43d41e01c2a46b3cb23eb9139dce4b",
+    "cpu_count": "2",
+    "memory_size": "4096",
+    "disk_size": "40960",
+    "headless": "false",
+    "skipexport": "false",
+    "ssh_user": "vagrant",
+    "ssh_pass": "vagrant"
+
+  }
+}

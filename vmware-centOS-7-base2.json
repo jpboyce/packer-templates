@@ -1,0 +1,60 @@
+{
+  "builders": [{
+    "type": "vsphere-iso",
+
+    "vcenter_server": "{{user `vc_host`}}",
+    "username": "{{user `vc_user`}}",
+    "password": "{{user `vc_password`}}",
+    "insecure_connection": "true",
+
+    "vm_name": "centos7-base-{{isotime \"20060102\"}}.{{isotime \"150405\"}}",
+
+
+    "host": "{{user `esxi_host`}}",
+    "network": "{{user `vc_network`}}",
+    "datastore": "{{user `vc_datastore`}}",
+    "cluster": "HomeLab",
+
+    "guest_os_type": "centos8_64Guest",
+
+    "ssh_username": "{{user `ssh_user`}}",
+    "ssh_password": "{{user `ssh_pass`}}",
+    "ssh_timeout": "2h",
+
+    "CPUs": "{{user `cpu_count`}}",
+    "RAM": "{{user `memory_size`}}",
+    "RAM_reserve_all": false,
+
+    "disk_controller_type":  "pvscsi",
+    "disk_size": "{{user `disk_size`}}",
+    "disk_thin_provisioned": true,
+
+    "network_card": "e1000",
+
+    "floppy_files": [
+      "kickstart/centos7/ks.cfg"
+    ],
+
+    "iso_paths": "[ds02] iso/CentOS-7-x86_64-Minimal-1810.iso",
+    "http_directory": "{{ user `http_directory` }}",
+    "boot_command": [
+      "<tab> text ks=floppy <enter><wait>"
+    ]
+  }],
+  "provisioners": [],
+  "variables": {
+    "http_directory": "kickstart/centos7",
+    "kickstart": "ks.cfg",
+    "iso_url": "file://E:/Software/CentOS/7/CentOS-7-x86_64-Minimal-1810.iso",
+    "iso_checksum_type": "md5",
+    "iso_checksum": "bd43d41e01c2a46b3cb23eb9139dce4b",
+    "cpu_count": "2",
+    "memory_size": "4096",
+    "disk_size": "40960",
+    "headless": "false",
+    "skipexport": "true",
+    "ssh_user": "vagrant",
+    "ssh_pass": "vagrant"
+
+  }
+}
