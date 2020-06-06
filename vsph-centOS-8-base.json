@@ -40,8 +40,9 @@
     "http_port_max": "{{user `http_port`}}",
 
     "boot_command": [
-      "<tab> text ks=floppy <enter><wait>"
+      "<tab> text ks=hd:fd0:/ks.cfg<enter><wait>"
     ],
+    "boot_wait": "10s",
 
     "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
     "shutdown_timeout": "5m"
@@ -50,15 +51,16 @@
   "provisioners": [
   ],
   "variables": {
-    "os_iso_url": "[nas01-iso] microsoft/17763.379.190312-0539.rs5_release_svc_refresh_SERVER_EVAL_x64FRE_en-us.iso",
+    "http_dir": "kickstart/centos8",
+    "kickstart": "ks.cfg",
+    "os_iso_url": "[nas01-iso] centos/CentOS-8.1.1911-x86_64-dvd1.iso",
     "tools_iso_url": "[nas01-iso] vmware/VMware-tools-windows-11.0.6-15940789.iso",
     "cpu_count": "2",
     "memory_size": "4096",
     "disk_size": "40960",
-    "winrm_user": "vagrant",
-    "winrm_pass": "vagrant",
+    "ssh_user": "vagrant",
+    "ssh_pass": "vagrant",
     "http_ip": "192.168.20.2",
-    "http_dir": "E:/Software",
     "http_port": "8000"
   }
 }
