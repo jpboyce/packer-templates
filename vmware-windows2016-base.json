@@ -61,6 +61,26 @@
     },
     {
       "type": "powershell",
+      "environment_vars": ["HTTP_IP={{user `http_ip`}}","HTTP_PORT={{user `http_port`}}"],
+      "scripts": ["scripts/windows/2016-servicing-update.ps1"],
+      "elevated_user": "{{user `winrm_user`}}",
+      "elevated_password": "{{user `winrm_pass`}}"
+    },
+    {
+      "type": "windows-restart"
+    },
+    {
+      "type": "powershell",
+      "environment_vars": ["HTTP_IP={{user `http_ip`}}","HTTP_PORT={{user `http_port`}}"],
+      "scripts": ["scripts/windows/2016-latest-cu.ps1"],
+      "elevated_user": "{{user `winrm_user`}}",
+      "elevated_password": "{{user `winrm_pass`}}"
+    },
+    {
+      "type": "windows-restart"
+    },
+    {
+      "type": "powershell",
       "environment_vars": ["DO_WIN_UPDATES={{user `do_win_updates`}}"],
       "scripts": ["scripts/windows/windowsupdates.ps1"],
       "elevated_user": "{{user `winrm_user`}}",
