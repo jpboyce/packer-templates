@@ -7,7 +7,7 @@
     "password":            "{{user `ext_vc_password`}}",
     "insecure_connection": "true",
 
-    "vm_name": "windos2019-base-{{isotime \"20060102\"}}.{{isotime \"150405\"}}",
+    "vm_name": "windows2019-base-{{isotime \"20060102\"}}.{{isotime \"150405\"}}",
     "host": "{{user `ext_esxi_host`}}",
     "cluster": "{{user `ext_vc_cluster`}}",
     "resource_pool": "{{user `ext_vc_resource_pool`}}",
@@ -76,7 +76,7 @@
     }
   ],
   "variables": {
-    "os_iso_url": "[nas01-iso] microsoft/17763.379.190312-0539.rs5_release_svc_refresh_SERVER_EVAL_x64FRE_en-us.iso",
+    "os_iso_url": "[nas01-iso] microsoft/en_windows_server_2019_updated_oct_2020_x64_dvd_7484fc77.iso",
     "tools_iso_url": "[nas01-iso] vmware/VMware-tools-windows-11.0.6-15940789.iso",
     "floppy_path": "[nas01-iso] vmware/pvscsi-Windows8.flp",
     "cpu_count": "2",
