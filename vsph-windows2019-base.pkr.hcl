@@ -22,15 +22,15 @@ variable "floppy_path" {
   default = "[nas01-iso] vmware/pvscsi-Windows8.flp"
 }
 
-variable "http_dir" {
-  type    = string
-  default = "E:/Software"
-}
+#variable "http_dir" {
+#  type    = string
+#  default = "E:/Software"
+#}
 
-variable "http_ip" {
-  type    = string
-  default = "192.168.20.2"
-}
+#variable "http_ip" {
+#  type    = string
+#  default = "192.168.20.2"
+#}
 
 variable "http_port" {
   type    = string
@@ -95,9 +95,9 @@ variable "ext_vc_network" {
 
 source "vsphere-iso" "win2019base" {
   # HTTP Configuration
-  http_directory        = "${var.http_dir}"
-  http_port_max         = "${var.http_port}"
-  http_port_min         = "${var.http_port}"
+  #http_directory        = "${var.http_dir}"
+  #http_port_max         = "${var.http_port}"
+  #http_port_min         = "${var.http_port}"
 
   # Floppy Configuration
   floppy_files          = ["answer_files/2019/vcenter/autounattend.xml", "drivers/vmware/pvscsi/Win8/*.*", "drivers/vmware/vmxnet3/Win8/*.*", "drivers/vmware/mouse/Win8/*.*", "scripts/windows/enable-winrm.ps1", "scripts/windows/set-powercfg.ps1"]
