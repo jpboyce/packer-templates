@@ -12,6 +12,7 @@ answer_files/2012r2/autounattend-custom.xml
 answer_files/2012r2/autounattend-Copy.xml
 packer_cache/*
 variables.json
+variables.pkrvars.hcl
 
 # Ignore Drivers
 # Allow mouse, pvscsi and vmxnet3
