@@ -8,8 +8,6 @@
                 <PathAndCredentials wcm:action="add" wcm:keyValue="1">
                     <Path>A:\</Path>
                 </PathAndCredentials>
-            </DriverPaths>
-            <DriverPaths>
                 <PathAndCredentials wcm:action="add" wcm:keyValue="2">
                     <Path>e:\Progra~2\VMware\VMware~2\Drivers\pvscsi\Win8\amd64</Path>
                 </PathAndCredentials>
