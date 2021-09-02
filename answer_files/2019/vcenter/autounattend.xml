@@ -9,6 +9,11 @@
                     <Path>A:\</Path>
                 </PathAndCredentials>
             </DriverPaths>
+            <DriverPaths>
+                <PathAndCredentials wcm:action="add" wcm:keyValue="2">
+                    <Path>e:\Progra~2\VMware\VMware~2\Drivers\pvscsi\Win8\amd64</Path>
+                </PathAndCredentials>
+            </DriverPaths>
         </component>
         <component name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS"
             xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State"
