@@ -14,4 +14,17 @@ packer_cache/*
 variables.json
 
 # Ignore Drivers
-drivers/vmware/*
+# Allow mouse, pvscsi and vmxnet3
+drivers/vmware/audio/*
+drivers/vmware/efifw/*
+drivers/vmware/giappdef/*
+drivers/vmware/glxgi/*
+drivers/vmware/hgfs/*
+drivers/vmware/memctl/*
+drivers/vmware/rawdsk/*
+drivers/vmware/vFileFilter/*
+drivers/vmware/video_wddm/*
+drivers/vmware/vmci/*
+drivers/vmware/vmxnet/*
+drivers/vmware/vNetFilter/*
+drivers/vmware/vss/*
