@@ -104,7 +104,7 @@ source "vsphere-iso" "win2019base" {
                             "drivers/vmware/pvscsi/Win8/pvscsi.cat", 
                             "drivers/vmware/pvscsi/Win8/pvscsi.inf", 
                             "drivers/vmware/pvscsi/Win8/pvscsi.sys", 
-                            "drivers/vmware/pvscsi/Win8/TXTSETUP.OEM", 
+                            "drivers/vmware/pvscsi/Win8/txtsetup.oem", 
                             "scripts/windows/enable-winrm.ps1", 
                             "scripts/windows/set-powercfg.ps1"]
 
