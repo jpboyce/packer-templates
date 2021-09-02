@@ -100,7 +100,7 @@ source "vsphere-iso" "win2019base" {
   #http_port_min         = "${var.http_port}"
 
   # Floppy Configuration
-  floppy_files          = ["answer_files/2019/vcenter/autounattend.xml", "drivers/vmware/pvscsi/Win8/*.*", "drivers/vmware/vmxnet3/Win8/*.*", "drivers/vmware/mouse/Win8/*.*", "scripts/windows/enable-winrm.ps1", "scripts/windows/set-powercfg.ps1"]
+  floppy_files          = ["answer_files/2019/vcenter/autounattend.xml", "drivers/vmware/pvscsi/Win8/*.*", "scripts/windows/enable-winrm.ps1", "scripts/windows/set-powercfg.ps1"]
 
   # Connection Configuration
   vcenter_server        = var.ext_vc_server
