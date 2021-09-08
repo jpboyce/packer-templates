@@ -1,5 +1,6 @@
 locals {
   packerStartTime = formatdate("YYYYMMDD-hhmm", timestamp())
+  #build_name = "packer-windows2019-base-${local.packerStartTime}"
 }
 
 variable "cpu_count" {
@@ -91,7 +92,10 @@ variable "ext_vc_datastore" {
 variable "ext_vc_network" {
   type = string
 }
-
+variable "build_prefix" {
+  type = string
+  default = "packer"
+}
 
 source "vsphere-iso" "win2019base" {
   # HTTP Configuration
@@ -121,7 +125,7 @@ source "vsphere-iso" "win2019base" {
   firmware              = "bios"
 
   # Location Configuration
-  vm_name               = "windows2019-base-${local.packerStartTime}"
+  vm_name               = "${var.build_prefix}-windows2019-base-${local.packerStartTime}"
   folder                = "Templates"
   cluster               = var.ext_vc_cluster
   host                  = var.ext_esxi_host
