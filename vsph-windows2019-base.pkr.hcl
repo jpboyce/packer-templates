@@ -92,9 +92,9 @@ variable "ext_vc_datastore" {
 variable "ext_vc_network" {
   type = string
 }
-variable "build_prefix" {
+variable "build_name" {
   type = string
-  default = "packer"
+  default = "packer-vsph-windows2019-base"
 }
 
 source "vsphere-iso" "win2019base" {
@@ -125,7 +125,7 @@ source "vsphere-iso" "win2019base" {
   firmware              = "bios"
 
   # Location Configuration
-  vm_name               = "${var.build_prefix}-windows2019-base-${local.packerStartTime}"
+  vm_name               = "${var.build_name}"
   folder                = "Templates"
   cluster               = var.ext_vc_cluster
   host                  = var.ext_esxi_host
@@ -164,6 +164,8 @@ source "vsphere-iso" "win2019base" {
   winrm_password        = "${var.winrm_pass}"
   winrm_timeout         = "12h"
   
+  # Convert to template to yes
+  convert_to_template   = true
 
 }
 
