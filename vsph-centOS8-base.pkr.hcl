@@ -77,7 +77,10 @@ source "vsphere-iso" "centOS8" {
   #http_directory        = "${var.http_dir}"
   #http_port_max         = "${var.http_port}"
   #http_port_min         = "${var.http_port}"
-
+ 
+  # Floppy Configuration
+  floppy_files          = ["kickstart/centos8/ks.cfg"]
+  
   # Connection Configuration
   vcenter_server        = var.ext_vc_server
   username              = var.ext_vc_username
