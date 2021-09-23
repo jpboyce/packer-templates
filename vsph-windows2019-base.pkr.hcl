@@ -68,28 +68,28 @@ variable "winrm_user" {
   default = "vagrant"
 }
 
-variable "ext_vc_server" {
+variable "vc_server" {
   type = string
 }
-variable "ext_vc_username" {
+variable "vc_username" {
   type = string
 }
-variable "ext_vc_password" {
+variable "vc_password" {
   type = string
 }
-variable "ext_vc_cluster" {
+variable "vc_cluster" {
   type = string
 }
-variable "ext_esxi_host" {
+variable "esxi_host" {
   type = string
 }
-variable "ext_vc_resource_pool" {
+variable "vc_resource_pool" {
   type = string
 }
-variable "ext_vc_datastore" {
+variable "vc_datastore" {
   type = string
 }
-variable "ext_vc_network" {
+variable "vc_network" {
   type = string
 }
 variable "build_name" {
@@ -113,9 +113,9 @@ source "vsphere-iso" "win2019base" {
                             "scripts/windows/set-powercfg.ps1"]
 
   # Connection Configuration
-  vcenter_server        = var.ext_vc_server
-  username              = var.ext_vc_username
-  password              = var.ext_vc_password
+  vcenter_server        = var.vc_server
+  username              = var.vc_username
+  password              = var.vc_password
   insecure_connection   = "true"
 
   # Hardware Configuration
@@ -127,10 +127,10 @@ source "vsphere-iso" "win2019base" {
   # Location Configuration
   vm_name               = "${var.build_name}"
   folder                = "Templates"
-  cluster               = var.ext_vc_cluster
-  host                  = var.ext_esxi_host
-  resource_pool         = var.ext_vc_resource_pool
-  datastore             = var.ext_vc_datastore
+  cluster               = var.vc_cluster
+  host                  = var.esxi_host
+  resource_pool         = var.vc_resource_pool
+  datastore             = var.vc_datastore
 
   # Run Configuration
   boot_order            = "disk,cdrom"
@@ -148,7 +148,7 @@ source "vsphere-iso" "win2019base" {
   guest_os_type         = "windows9Server64Guest"
   network_adapters {
     network_card          = "vmxnet3"
-    network               = var.ext_vc_network
+    network               = var.vc_network
   }
   notes                 = "Packer template provisioned on ${local.packerStartTime}"
   disk_controller_type  = ["pvscsi"]
