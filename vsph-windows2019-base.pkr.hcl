@@ -83,7 +83,7 @@ variable "vc_cluster" {
 variable "vc_folder" {
   type = string
 }
-variable "esxi_host" {
+variable "vc_host" {
   type = string
 }
 variable "vc_resource_pool" {
@@ -131,7 +131,7 @@ source "vsphere-iso" "win2019base" {
   vm_name               = "${var.build_name}"
   folder                = var.vc_folder
   cluster               = var.vc_cluster
-  host                  = var.esxi_host
+  host                  = var.vc_host
   resource_pool         = var.vc_resource_pool
   datastore             = var.vc_datastore
 
