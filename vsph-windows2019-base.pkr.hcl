@@ -48,9 +48,8 @@ variable "vc_win2019iso" {
   default = "[nas01-iso] microsoft/en_windows_server_2019_updated_oct_2020_x64_dvd_7484fc77.iso"
 }
 
-variable "tools_iso_url" {
+variable "vc_toolsiso" {
   type    = string
-  default = "[nas01-iso] vmware/VMware-tools-windows-11.0.6-15940789.iso"
 }
 
 variable "vm_notes" {
@@ -145,7 +144,7 @@ source "vsphere-iso" "win2019base" {
   # Wait Configuration
 
   # ISO Configuration
-  iso_paths             = ["${var.vc_win2019iso}", "${var.tools_iso_url}"]
+  iso_paths             = ["${var.vc_win2019iso}", "${var.vc_toolsiso}"]
 
   # Create Configuration
   guest_os_type         = "windows9Server64Guest"
