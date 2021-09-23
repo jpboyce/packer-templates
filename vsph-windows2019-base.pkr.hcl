@@ -45,7 +45,6 @@ variable "memory_size" {
 
 variable "vc_win2019iso" {
   type    = string
-  default = "[nas01-iso] microsoft/en_windows_server_2019_updated_oct_2020_x64_dvd_7484fc77.iso"
 }
 
 variable "vc_toolsiso" {
