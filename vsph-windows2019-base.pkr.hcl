@@ -18,11 +18,6 @@ variable "do_win_updates" {
   default = "yes"
 }
 
-variable "floppy_path" {
-  type    = string
-  default = "[nas01-iso] vmware/pvscsi-Windows8.flp"
-}
-
 #variable "http_dir" {
 #  type    = string
 #  default = "E:/Software"
