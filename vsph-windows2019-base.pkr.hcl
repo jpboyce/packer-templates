@@ -80,6 +80,9 @@ variable "vc_password" {
 variable "vc_cluster" {
   type = string
 }
+variable "vc_folder" {
+  type = string
+}
 variable "esxi_host" {
   type = string
 }
@@ -126,7 +129,7 @@ source "vsphere-iso" "win2019base" {
 
   # Location Configuration
   vm_name               = "${var.build_name}"
-  folder                = "Templates"
+  folder                = var.vc_folder
   cluster               = var.vc_cluster
   host                  = var.esxi_host
   resource_pool         = var.vc_resource_pool
